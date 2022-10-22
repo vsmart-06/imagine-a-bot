@@ -25,7 +25,7 @@ async def on_guild_remove(guild: discord.Guild):
 @bot.slash_command(name = "about", description = "Get to know about the initiative!")
 async def about(interaction: discord.Interaction):
     about_embed = discord.Embed(title = "About us!", description = "Thanks a lot for showing your interest in us! Imagine-A-Bot is an initiative by a [budding freelancer](https://discord.com/users/706855396828250153/) wherein he will build a custom Discord bot in python for just $5! Not just that, all the money collected through this initiative will be given to charity, through a non-profit organization named [Sewa International](https://www.sewainternational.org/)!", colour = discord.Colour.blue())
-    about_embed.add_field(name = "Details",  value = "With this offer, I will give you a personalized Discord bot which will ideally have 5~10 commands, both traditional text commands and the new slash commands. However, the number of commands is open to discussion! A team will be made on the Discord Developers Portal so that you can access the bot's application page in order to customize it to your preferences. Throughout the duration of the bot's creation, you will have private access to a GitHub repository that will be created for the bot. After the bot is created, I will also guide you on how to host this bot so that it can run 24/7, ready to respond to your commands at any time!", inline = False)
+    about_embed.add_field(name = "Details",  value = "With this offer, I will give you a personalized Discord bot which will ideally have 5-10 commands, both traditional text commands and the new slash commands. However, the number of commands is open to discussion! A team will be made on the Discord Developers Portal so that you can access the bot's application page in order to customize it to your preferences. Throughout the duration of the bot's creation, you will have private access to a GitHub repository that will be created for the bot. After the bot is created, I will also guide you on how to host this bot so that it can run 24/7, ready to respond to your commands at any time!", inline = False)
     about_embed.add_field(name = "TL;DR", value = '''With this package, you will essentially get:
 1. A custom Discord bot
 2. Complete access to the codebase for the bot
@@ -38,7 +38,9 @@ async def about(interaction: discord.Interaction):
 
 @bot.slash_command(name = "start", description = "Get the link to hire the freelancer to build your bot!")
 async def start(interaction: discord.Interaction):
-    await interaction.send("https://www.fiverr.com/share/xj8RXZ")
+    view = discord.ui.View(timeout = None)
+    view.add_item(discord.ui.Button(label = "Imagine A Bot!", style = discord.ButtonStyle.url, url = "https://www.fiverr.com/share/xj8RXZ"))
+    await interaction.send(view = view)
 
 @bot.slash_command(name = "avatar")
 async def avatar():
