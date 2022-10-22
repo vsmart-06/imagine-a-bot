@@ -82,4 +82,8 @@ async def reply(interaction: discord.Interaction, user: str = discord.SlashOptio
     await reply_user.send(embed = reply_embed)
     await interaction.send(embed = reply_embed)
 
+@bot.slash_command(name = "strength", description = "View the bot's server count", guild_ids = [852578295967121438, 835448058656587777])
+async def strength(interaction: discord.Interaction):
+    await interaction.send(f"I'm in {len(bot.guilds)} servers!")
+
 bot.run(token)
