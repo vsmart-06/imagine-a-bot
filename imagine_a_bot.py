@@ -32,14 +32,14 @@ async def about(interaction: discord.Interaction):
 3. A hands-on guide on how to host the bot
 4. A $5 donation to Sewa International!
 
-**Link to get started**: https://www.fiverr.com/share/xj8RXZ''', inline = False)
+**Link to get started**: https://www.fiverr.com/vsmart_06/make-a-custom-discord-bot-in-python''', inline = False)
     about_embed.set_image(url = "https://media.discordapp.net/attachments/852578295967121443/1032627676139237476/fiverr_banner.png?width=841&height=473")
     await interaction.send(embed = about_embed)
 
 @bot.slash_command(name = "start", description = "Get the link to hire the freelancer to build your bot!")
 async def start(interaction: discord.Interaction):
     view = discord.ui.View(timeout = None)
-    view.add_item(discord.ui.Button(label = "Imagine A Bot!", style = discord.ButtonStyle.url, url = "https://www.fiverr.com/share/xj8RXZ"))
+    view.add_item(discord.ui.Button(label = "Imagine A Bot!", style = discord.ButtonStyle.url, url = "https://www.fiverr.com/vsmart_06/make-a-custom-discord-bot-in-python"))
     await interaction.send(view = view)
 
 @bot.slash_command(name = "avatar")
