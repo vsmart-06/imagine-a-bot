@@ -39,7 +39,7 @@ async def about(interaction: discord.Interaction):
 @bot.slash_command(name = "start", description = "Get the link to hire the freelancer to build your bot!")
 async def start(interaction: discord.Interaction):
     view = discord.ui.View(timeout = None)
-    view.add_item(discord.ui.Button(label = "Imagine A Bot!", style = discord.ButtonStyle.url, url = "https://www.fiverr.com/vsmart_06/make-a-custom-discord-bot-in-python"))
+    view.add_item(discord.ui.Button(label = "Imagine-A-Bot!", style = discord.ButtonStyle.url, url = "https://www.fiverr.com/vsmart_06/make-a-custom-discord-bot-in-python"))
     await interaction.send(view = view)
 
 @bot.slash_command(name = "avatar")
