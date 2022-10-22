@@ -3,7 +3,6 @@ from nextcord.ext import commands
 import os
 
 bot = commands.Bot()
-
 token = os.getenv("DISCORD_TOKEN")
 
 @bot.event
