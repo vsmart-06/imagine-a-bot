@@ -85,7 +85,7 @@ class Contact(discord.ui.Modal):
 @bot.slash_command(name = "contact", description = "Send a message to the freelancer!")
 async def contact(interaction: discord.Interaction):
     modal = Contact()
-    interaction.response.send_modal(modal)
+    await interaction.response.send_modal(modal)
 
 class Reply(discord.ui.Modal):
     def __init__(self, user: discord.User):
@@ -105,7 +105,7 @@ class Reply(discord.ui.Modal):
         await interaction.send(embed = reply_embed)
 
 @bot.slash_command(name = "reply", description = "Reply to a message", guild_ids = [852578295967121438])
-async def reply(interaction: discord.Interaction, user: str = discord.SlashOption(name = "user", description = "The ID of the user you wish to reply to", required = True), message: str = discord.SlashOption(name = "message", description = "The message you wish to send")):
+async def reply(interaction: discord.Interaction, user: str = discord.SlashOption(name = "user", description = "The ID of the user you wish to reply to", required = True)):
     try:
         user = int(user)
         reply_user = await bot.fetch_user(user)
