@@ -74,7 +74,7 @@ class Contact(discord.ui.Modal):
         contact_embed = discord.Embed(title = "New message", description = f'''**User**: {interaction.user} ({interaction.user.mention})
 **Server**: {interaction.guild.name}
 
-**Message**: {self.description}
+**Message**: {self.description.value}
 ''', colour = discord.Colour.blue())
         channel = await bot.fetch_channel(1032630602328977449)
         my_user = await bot.fetch_user(706855396828250153)
@@ -100,7 +100,7 @@ class Reply(discord.ui.Modal):
         self.add_item(self.description)
     
     async def callback(self, interaction: discord.Interaction) -> None:
-        reply_embed = discord.Embed(title = "Reply from the freelancer!", description = self.description, colour = discord.Colour.blue())
+        reply_embed = discord.Embed(title = "Reply from the freelancer!", description = self.description.value, colour = discord.Colour.blue())
         await self.user.send(embed = reply_embed)
         await interaction.send(embed = reply_embed)
 
