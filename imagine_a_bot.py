@@ -58,18 +58,51 @@ async def user_avatar(interaction: discord.Interaction, user: discord.Member = d
         url = interaction.user.display_avatar
     await interaction.send(url)
 
-@bot.slash_command(name = "contact", description = "Send a message to the freelancer!")
-async def contact(interaction: discord.Interaction, message: str = discord.SlashOption(name = "message", description = "The message you would like to send", required = True)):
-    contact_embed = discord.Embed(title = "New message", description = f'''**User**: {interaction.user} ({interaction.user.mention})
+class Contact(discord.ui.Modal):
+    def __init__(self):
+        super().__init__("Contact the freelancer!", timeout = None)
+
+        self.description = discord.ui.TextInput(
+            label = "Content of the message",
+            style = discord.TextInputStyle.paragraph,
+            placeholder = "This is the message that will be sent to the freelancer",
+            required = True
+        )
+        self.add_item(self.description)
+    
+    async def callback(self, interaction: discord.Interaction) -> None:
+        contact_embed = discord.Embed(title = "New message", description = f'''**User**: {interaction.user} ({interaction.user.mention})
 **Server**: {interaction.guild.name}
 
-**Message**: {message}
+**Message**: {self.description}
 ''', colour = discord.Colour.blue())
-    channel = await bot.fetch_channel(1032630602328977449)
-    my_user = await bot.fetch_user(706855396828250153)
-    msg = await channel.send(embed = contact_embed)
-    await my_user.send(f"New message! {msg.jump_url}")
-    await interaction.send("Message sent! You will receive a response via DMs!", ephemeral = True)
+        channel = await bot.fetch_channel(1032630602328977449)
+        my_user = await bot.fetch_user(706855396828250153)
+        msg = await channel.send(embed = contact_embed)
+        await my_user.send(f"New message! {msg.jump_url}")
+        await interaction.send("Message sent! You will receive a response via DMs!", ephemeral = True)
+
+@bot.slash_command(name = "contact", description = "Send a message to the freelancer!")
+async def contact(interaction: discord.Interaction):
+    modal = Contact()
+    interaction.response.send_modal(modal)
+
+class Reply(discord.ui.Modal):
+    def __init__(self, user):
+        super().__init__("Reply to a message!", timeout = None)
+        self.user = user
+        self.description = discord.ui.TextInput(
+            label = "Content of the message",
+            style = discord.TextInputStyle.paragraph,
+            placeholder = "This is the message that will be sent to the user",
+            required = True
+        )
+        self.add_item(self.description)
+    
+    async def callback(self, interaction: discord.Interaction) -> None:
+        reply_embed = discord.Embed(title = "Reply from the freelancer!", description = self.description, colour = discord.Colour.blue())
+        await self.user.send(embed = reply_embed)
+        await interaction.send(embed = reply_embed)
 
 @bot.slash_command(name = "reply", description = "Reply to a message", guild_ids = [852578295967121438])
 async def reply(interaction: discord.Interaction, user: str = discord.SlashOption(name = "user", description = "The ID of the user you wish to reply to", required = True), message: str = discord.SlashOption(name = "message", description = "The message you wish to send")):
@@ -79,9 +112,8 @@ async def reply(interaction: discord.Interaction, user: str = discord.SlashOptio
     except:
         await interaction.send("Invalid user ID", ephemeral = True)
         return
-    reply_embed = discord.Embed(title = "Reply from the freelancer!", description = message, colour = discord.Colour.blue())
-    await reply_user.send(embed = reply_embed)
-    await interaction.send(embed = reply_embed)
+    modal = Reply(reply_user)
+    await interaction.response.send_modal(modal)
 
 @bot.slash_command(name = "strength", description = "View the bot's server count", guild_ids = [852578295967121438, 835448058656587777])
 async def strength(interaction: discord.Interaction):
