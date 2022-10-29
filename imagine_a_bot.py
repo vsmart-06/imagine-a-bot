@@ -88,7 +88,7 @@ async def contact(interaction: discord.Interaction):
     interaction.response.send_modal(modal)
 
 class Reply(discord.ui.Modal):
-    def __init__(self, user):
+    def __init__(self, user: discord.User):
         super().__init__("Reply to a message!", timeout = None)
         self.user = user
         self.description = discord.ui.TextInput(
